@@ -1,3 +1,16 @@
+```bash                                      
+ __      __   _             ____  _     _           _   
+ \ \    / /  | |           / __ \| |   (_)         | |  
+  \ \  / /_ _| |_   _  ___| |  | | |__  _  ___  ___| |_ 
+   \ \/ / _` | | | | |/ _ \ |  | | '_ \| |/ _ \/ __| __|
+    \  / (_| | | |_| |  __/ |__| | |_) | |  __/ (__| |_ 
+     \/ \__,_|_|\__,_|\___|\____/|_.__/| |\___|\___|\__|
+                                      _/ |              
+                                     |__/                       
+version: v.2.0.0  
+description: There's patterns in everything and everywhere
+```
+
 # Patterns — Value Object
 
 **Immutable, self-validating domain objects that compare by value.**
@@ -18,7 +31,7 @@ blocks. One pattern, one package.
 composer require patterns/value-object
 ```
 
-The base class is standalone: no runtime dependencies, not even `patterns/result`.
+The base class is standalone: no runtime dependencies.
 Pair it with [`patterns/result`](https://packagist.org/packages/patterns/result) if
 you want your factories to return a `Result` instead of throwing — that is what the
 examples do, and it is listed under `suggest`.
@@ -128,14 +141,14 @@ Two worked, fully tested examples live in the repository — `tests/Examples/`,
 namespace `Patterns\Tests\Examples\` — so the runtime package stays
 dependency-free. Copy them as a starting point.
 
-📂 **Working examples on GitHub** —
+ **Working examples on GitHub** —
 [`tests/Examples/Email.php`](https://github.com/patterns-php/value-object/blob/main/tests/Examples/Email.php) ·
 [`tests/Examples/Money.php`](https://github.com/patterns-php/value-object/blob/main/tests/Examples/Money.php)
 
 **`Email`** — validation + normalization + custom string form:
 
 ```php
-Email::create('  TeSt@ExAmPlE.CoM  ')->value(); // "test@example.com"
+Email::create('  TeSt@ExAmPlE.CoM  ')->value()->value(); //  "test@example.com" if you use Result
 Email::create('')->errorMessage();                        // "Email cannot be empty"
 Email::create('nope')->errorMessage();                     // "Email is not in valid format"
 Email::create(123)->errorMessage();                        // "Email must be a string"
@@ -178,29 +191,6 @@ final class Payment extends ValueObject
 `Payment::of($a, $m1)->equals(Payment::of($b, $m2))` recurses into the nested
 Value Objects — no manual comparison code. (`Payment` is the fixture used by the
 test suite to prove nested equality; see `tests/Fixtures/Payment.php`.)
-
-## PHP notes (vs the TypeScript original)
-
-- **Zero dependencies, like the original.** The TS `value-object.ts` imports
-  nothing, and neither does this port — the `Result`-returning examples live in
-  the test suite, not in `src/`.
-- **Flat namespace.** The class is `Patterns\ValueObject`, sitting directly under
-  `Patterns\` like `Patterns\Result`. The package ships *the pattern*, never a
-  family of value objects, so there is no sub-namespace to hold them.
-- **`readonly` instead of `Object.freeze()`.** PHP's `readonly` is deeper than
-  TS's shallow freeze: the payload cannot be mutated at all, and PHP arrays are
-  value types, so the stored copy is already detached from the caller's array.
-- **`equals()` accepts `mixed`.** The TS signature is `ValueObject<T> | null`;
-  PHP's `mixed` keeps it safe on raw data (`$vo->equals(null)` → `false`) and
-  mirrors the defensive style of `patterns/guard`.
-- **Equality is class-strict.** TS used `vo instanceof this.constructor`
-  (a subclass of `Email` counted as equal); here `$other::class === static::class`.
-- **`toObject()` → `toProps()`.** Renamed so the return type (`array`) matches
-  the name, and to avoid clashing with a subclass's own `toObject()`/`toArray()`.
-- **Constructor is `protected`.** Subclasses may narrow it to `private` and
-  should expose a `create(): Result` factory.
-- **`__toString()` added** — PHP's idiomatic `toString()`.
-- **`JsonSerializable` implemented** — `json_encode($vo)` just works.
 
 ## Tests
 

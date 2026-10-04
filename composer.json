@@ -1,0 +1,39 @@
+{
+    "name": "patterns/value-object",
+    "description": "Value Object pattern - immutable, self-validating domain objects that compare by value.",
+    "type": "library",
+    "keywords": [
+        "value-object",
+        "pattern",
+        "ddd",
+        "domain",
+        "immutable",
+        "equality",
+        "result"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=8.1",
+        "patterns/result": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5 || ^10.0 || ^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Patterns\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Patterns\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable"
+}

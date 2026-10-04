@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Patterns\Tests\Fixtures;
 
-use Patterns\ValueObject\ValueObject;
+use Patterns\ValueObject;
 
 /**
  * Minimal concrete Value Object used to exercise the base class.

@@ -6,7 +6,7 @@ Part of the **Patterns** collection: small, rock-solid, dependency-free building
 blocks. One pattern, one package.
 
 - Package: `patterns/value-object`
-- Namespace: `Patterns\ValueObject`
+- Class: `Patterns\ValueObject`
 - Dependencies: **none** — the base class imports nothing
 - PHP: `>=8.1`
 
@@ -59,7 +59,7 @@ and it returns a `Result`. That is the whole pattern.
 
 ```php
 use Patterns\Result;
-use Patterns\ValueObject\ValueObject;
+use Patterns\ValueObject;
 
 final class Money extends ValueObject
 {
@@ -83,7 +83,7 @@ final class Money extends ValueObject
 }
 ```
 
-## API — `Patterns\ValueObject\ValueObject`
+## API — `Patterns\ValueObject`
 
 | Member | Behaviour |
 |---|---|
@@ -124,14 +124,18 @@ instance wrapped in a `Result` (see `Money::add()`).
 
 ## Examples
 
-Two worked examples are kept in the **test suite** — `tests/Examples/`, namespace
-`Patterns\Tests\Examples\` — so the runtime package stays dependency-free. Copy
-them as a starting point:
+Two worked, fully tested examples live in the repository — `tests/Examples/`,
+namespace `Patterns\Tests\Examples\` — so the runtime package stays
+dependency-free. Copy them as a starting point.
+
+📂 **Working examples on GitHub** —
+[`tests/Examples/Email.php`](https://github.com/patterns-php/value-object/blob/main/tests/Examples/Email.php) ·
+[`tests/Examples/Money.php`](https://github.com/patterns-php/value-object/blob/main/tests/Examples/Money.php)
 
 **`Email`** — validation + normalization + custom string form:
 
 ```php
-Email::create('  TeSt@ExAmPlE.CoM  ')->value()->value();  // "test@example.com"
+Email::create('  TeSt@ExAmPlE.CoM  ')->value(); // "test@example.com"
 Email::create('')->errorMessage();                        // "Email cannot be empty"
 Email::create('nope')->errorMessage();                     // "Email is not in valid format"
 Email::create(123)->errorMessage();                        // "Email must be a string"
@@ -180,6 +184,9 @@ test suite to prove nested equality; see `tests/Fixtures/Payment.php`.)
 - **Zero dependencies, like the original.** The TS `value-object.ts` imports
   nothing, and neither does this port — the `Result`-returning examples live in
   the test suite, not in `src/`.
+- **Flat namespace.** The class is `Patterns\ValueObject`, sitting directly under
+  `Patterns\` like `Patterns\Result`. The package ships *the pattern*, never a
+  family of value objects, so there is no sub-namespace to hold them.
 - **`readonly` instead of `Object.freeze()`.** PHP's `readonly` is deeper than
   TS's shallow freeze: the payload cannot be mutated at all, and PHP arrays are
   value types, so the stored copy is already detached from the caller's array.

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Patterns\Tests\Fixtures;
 
-use Patterns\ValueObject\ValueObject;
+use Patterns\ValueObject;
 
 /**
  * Same shape as {@see Point} - used to prove equality is class-strict.

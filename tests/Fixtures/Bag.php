@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Patterns\Tests\Fixtures;
 
-use Patterns\ValueObject\ValueObject;
+use Patterns\ValueObject;
 
 /**
  * Value Object whose payload is an arbitrary array - used to exercise deep,

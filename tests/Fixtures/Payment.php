@@ -6,7 +6,7 @@ namespace Patterns\Tests\Fixtures;
 
 use Patterns\Tests\Examples\Email;
 use Patterns\Tests\Examples\Money;
-use Patterns\ValueObject\ValueObject;
+use Patterns\ValueObject;
 
 /**
  * Value Object composed of other Value Objects - used to exercise nested

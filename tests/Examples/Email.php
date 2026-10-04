@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Patterns\Tests\Examples;
 
 use Patterns\Result;
-use Patterns\ValueObject\ValueObject;
+use Patterns\ValueObject;
 
 /**
  * Email - canonical Value Object example.

@@ -13,11 +13,14 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=8.1",
-        "patterns/result": "^1.0"
+        "php": ">=8.1"
     },
     "require-dev": {
+        "patterns/result": "^1.0",
         "phpunit/phpunit": "^9.5 || ^10.0 || ^11.0"
+    },
+    "suggest": {
+        "patterns/result": "Return a Result from your value object factories instead of throwing (used by the examples in tests/Examples)."
     },
     "autoload": {
         "psr-4": {

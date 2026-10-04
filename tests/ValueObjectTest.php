@@ -6,8 +6,8 @@ namespace Patterns\Tests;
 
 use Error;
 use PHPUnit\Framework\TestCase;
-use Patterns\Examples\Email;
-use Patterns\Examples\Money;
+use Patterns\Tests\Examples\Email;
+use Patterns\Tests\Examples\Money;
 use Patterns\Tests\Fixtures\Bag;
 use Patterns\Tests\Fixtures\Coordinate;
 use Patterns\Tests\Fixtures\Payment;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Patterns\Tests\Fixtures;
 
-use Patterns\Examples\Email;
-use Patterns\Examples\Money;
+use Patterns\Tests\Examples\Email;
+use Patterns\Tests\Examples\Money;
 use Patterns\ValueObject\ValueObject;
 
 /**

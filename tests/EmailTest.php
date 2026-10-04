@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Patterns\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Patterns\Examples\Email;
+use Patterns\Tests\Examples\Email;
 
 final class EmailTest extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Patterns\Examples;
+namespace Patterns\Tests\Examples;
 
 use Patterns\Result;
 use Patterns\ValueObject\ValueObject;

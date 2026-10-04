@@ -7,7 +7,7 @@ blocks. One pattern, one package.
 
 - Package: `patterns/value-object`
 - Namespace: `Patterns\ValueObject`
-- Depends on: `patterns/result`
+- Dependencies: **none** — the base class imports nothing
 - PHP: `>=8.1`
 
 ---
@@ -17,6 +17,11 @@ blocks. One pattern, one package.
 ```bash
 composer require patterns/value-object
 ```
+
+The base class is standalone: no runtime dependencies, not even `patterns/result`.
+Pair it with [`patterns/result`](https://packagist.org/packages/patterns/result) if
+you want your factories to return a `Result` instead of throwing — that is what the
+examples do, and it is listed under `suggest`.
 
 ## Why
 
@@ -34,7 +39,7 @@ if ($a === $b) { /* never true for "the same" money */ }
 
 ```php
 // After — the concept validates itself and compares by value
-use Patterns\Examples\Email;
+use App\Domain\Email;   // your own Value Object
 
 $result = Email::create($payload['email']);
 
@@ -119,7 +124,9 @@ instance wrapped in a `Result` (see `Money::add()`).
 
 ## Examples
 
-Two worked examples ship in `Patterns\Examples`:
+Two worked examples are kept in the **test suite** — `tests/Examples/`, namespace
+`Patterns\Tests\Examples\` — so the runtime package stays dependency-free. Copy
+them as a starting point:
 
 **`Email`** — validation + normalization + custom string form:
 
@@ -165,10 +172,14 @@ final class Payment extends ValueObject
 ```
 
 `Payment::of($a, $m1)->equals(Payment::of($b, $m2))` recurses into the nested
-Value Objects — no manual comparison code.
+Value Objects — no manual comparison code. (`Payment` is the fixture used by the
+test suite to prove nested equality; see `tests/Fixtures/Payment.php`.)
 
 ## PHP notes (vs the TypeScript original)
 
+- **Zero dependencies, like the original.** The TS `value-object.ts` imports
+  nothing, and neither does this port — the `Result`-returning examples live in
+  the test suite, not in `src/`.
 - **`readonly` instead of `Object.freeze()`.** PHP's `readonly` is deeper than
   TS's shallow freeze: the payload cannot be mutated at all, and PHP arrays are
   value types, so the stored copy is already detached from the caller's array.

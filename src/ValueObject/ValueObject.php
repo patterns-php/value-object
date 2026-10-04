@@ -14,7 +14,10 @@ use JsonSerializable;
  *
  * Concrete value objects are expected to:
  *   - keep the constructor private/protected,
- *   - expose a static factory that validates and returns a `Patterns\Result`,
+ *   - expose a static factory that validates its input and reports failure
+ *     instead of constructing an invalid instance (typically by returning a
+ *     `Patterns\Result` from `patterns/result` - an optional pairing, this
+ *     package itself has no dependencies),
  *   - read their payload from `$this->props`.
  *
  * @see README.md for full documentation and examples.
